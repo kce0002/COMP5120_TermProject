@@ -34,24 +34,17 @@
 		<script src="bootstrap/js/jquery-3.3.1.min.js"></script>
 		<script src="js/script.js"></script>
 		
-		<div style="justify-context: center; text-align: center;">
-			<h1>Bookstore</h1>
+		<div class="jumbotron" style="margin: 0;">
+			<div class="container" style="justify-context: center; text-align: center;">
+				<h1>Online Bookstore</h1>
+				<p>COMP 5120 Term Project - Fall 2018</p>
+			</div>
 		</div>
 	</head>
 	<body>
 		<div style="justify-context: center; text-align: center;">
-			<h2>Info</h2>
 			<div class="tab">
 				<?php
-					/*$i = 0;
-					if (mysqli_num_rows($tables) > 0) {
-						while ($row = mysqli_fetch_assoc($tables)) {
-							echo '<button class="tablinks" onclick="openTable(event, \''.$row["tables"].'\')">'.$row["tables"].'</button>';
-							$tablesArr[$i] = $row["tables"];
-							$i++;
-								
-						}
-					}*/
 					foreach ($tablesArr as $value) {
 						echo '<button class="tablinks" onclick="openTable(event, \''.$value.'\')">'.$value.'</button>';
 
