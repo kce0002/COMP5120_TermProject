@@ -1,4 +1,15 @@
 <?php
+	/*function getQuery($userQuery) {
+		if (empty($_POST['query'])) {
+			
+		}
+		else {
+			$userQuery = $_POST['query'];
+			echo $userQuery;
+			print_r($_POST);
+		}
+	}*/
+	$userQuery = "";
 	$DBHost = "10.1.100.7";
 	$DBUser = "appuser";
 	$DBPass = "password";
@@ -34,10 +45,10 @@
 		<script src="bootstrap/js/jquery-3.3.1.min.js"></script>
 		<script src="js/script.js"></script>
 		
-		<div class="jumbotron" style="margin: 0;">
+		<div class="jumbotron" style="margin: 0; background-color: #4d4d4d;">
 			<div class="container" style="justify-context: center; text-align: center;">
-				<h1>Online Bookstore</h1>
-				<p>COMP 5120 Term Project - Fall 2018</p>
+				<h1 style="color: #fff;">Online Bookstore</h1>
+				<p style="color: #fff;">COMP 5120 Term Project - Fall 2018</p>
 			</div>
 		</div>
 	</head>
@@ -54,13 +65,14 @@
 			<?php
 				foreach ($tablesArr as $value) {
 					echo "<div id=".$value." class=\"tabcontent\">";
+					echo "<h2>".$value."</h2>";
 					echo '<table>';
 					echo '<tr>';
 					$columnsQuery = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'db' AND TABLE_NAME = '".$value."';";
 					$columns = mysqli_query($conn, $columnsQuery);
 					if (mysqli_num_rows($columns) > 0) {
 						while ($row = mysqli_fetch_assoc($columns)) {
-							echo '<th style="border: solid 2px lightgrey;">'.$row["COLUMN_NAME"].'</th>';
+							echo '<th style="border: solid 2px darkgrey;">'.$row["COLUMN_NAME"].'</th>';
 						}
 					}
 					echo '</tr>';
@@ -70,7 +82,7 @@
 						while ($row = mysqli_fetch_row($dataResult)) {								
 							echo '<tr>';		
 							for ($j = 0; $j < sizeof($row); $j++) {
-								echo '<td style="border: solid 2px lightgrey;">'.$row[$j].'</td>';
+								echo '<td style="border: solid 2px darkgrey;">'.$row[$j].'</td>';
 							}
 							echo '</tr>';
 						}
@@ -91,9 +103,27 @@
 					else {
 						echo "0 results";
 					}
-					mysqli_close($conn);
+					//mysqli_close($conn);
 				?>
 			</div>
+		</div>
+		<div style="justify-context: center; text-align: center;">
+			<br>
+			<form method="POST" action="">
+				<h3>Query:</h3>
+				<textarea name="query" rows="5" cols="40"></textarea>
+				<br>
+				<br>
+				<input type="submit" class="button" style="float-left;" value="Submit">
+			</form>
+			<?php
+				if (isset($_POST['query'])) {
+					$userQuery = $_POST['query'];
+					mysqli_query($conn, $userQuery);
+					mysqli_close($conn);
+					echo "<meta http-equiv='refresh' content='0'>";
+				}
+			?>
 		</div>
 	</body>
 </html>
