@@ -36,23 +36,22 @@
 	}
 ?>
 <html>
-	<title>Bookstore</title>
 	<head>
+        <title>Bookstore</title>
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 		<script src="bootstrap/js/jquery-3.3.1.min.js"></script>
 		<script src="js/script.js"></script>
-		
-		<div class="jumbotron" style="margin: 0; background-color: #4d4d4d;">
+	</head>
+	<body>
+        <div class="jumbotron" style="margin: 0; background-color: #4d4d4d;">
 			<div class="container" style="justify-context: center; text-align: center;">
 				<h1 style="color: #fff;">Online Bookstore</h1>
 				<p style="color: #fff;">COMP 5120 Term Project - Fall 2018</p>
 			</div>
 		</div>
-	</head>
-	<body>
 		<div style="justify-context: center; text-align: center;">
 			<div class="tab">
 				<?php
@@ -118,7 +117,7 @@
 			</form>
 			<?php
 				if (isset($_POST['query'])) {
-					$userQuery = $_POST['query'];
+					$userQuery = "".$_POST['query'];
 					mysqli_query($conn, $userQuery);
 					mysqli_close($conn);
 					echo "<meta http-equiv='refresh' content='0'>";
