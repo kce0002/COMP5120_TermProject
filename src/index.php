@@ -10,10 +10,10 @@
 		}
 	}*/
 	$userQuery = "";
-	$DBHost = "10.1.100.7";
-	$DBUser = "appuser";
-	$DBPass = "password";
-	$DBName = "db";
+	$DBHost = "mysql.auburn.edu";
+	$DBUser = "kce0002";
+	$DBPass = "Auburn123";
+	$DBName = "kce0002db";
 	$bookQuery = "SELECT * FROM Book;";
 	$tableNamesQuery = "SELECT table_name AS tables FROM information_schema.tables WHERE table_schema = DATABASE();";
 
@@ -68,7 +68,7 @@
 					echo "<h2>".$value."</h2>";
 					echo '<table>';
 					echo '<tr>';
-					$columnsQuery = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'db' AND TABLE_NAME = '".$value."';";
+					$columnsQuery = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'kce0002db' AND TABLE_NAME = '".$value."';";
 					$columns = mysqli_query($conn, $columnsQuery);
 					if (mysqli_num_rows($columns) > 0) {
 						while ($row = mysqli_fetch_assoc($columns)) {
