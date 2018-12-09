@@ -10,6 +10,7 @@
 		}
 	}*/
 	$userQuery = "";
+    $rowsAffected = "";
 	$DBHost = "mysql.auburn.edu";
 	$DBUser = "kce0002";
 	$DBPass = "Auburn123";
@@ -123,11 +124,19 @@
 					if (!mysqli_query($conn, stripslashes($userQuery))) {
 						echo mysqli_error($conn);
 					}
+                    else {
+                        $rowsAffected = mysqli_affected_rows($conn);
+                    }
 					//mysqli_query($conn, $userQuery);
 					mysqli_close($conn);
 					echo "<meta http-equiv='refresh' content='0'>";
 				}
 			?>
 		</div>
+        <div style="justify-context: center; text-align: center;">
+            <br>
+            <br>
+            echo "<p>".$rowsAffected."</p>";
+        </div>
 	</body>
 </html>
