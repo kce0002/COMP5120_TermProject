@@ -119,24 +119,53 @@
 			<?php
 				if (isset($_POST['query'])) {
 					//$userQuery = "".$_POST['query'];
-					$userQuery = implode("", $_POST);
+					//$userQuery = implode("", $_POST);
 					//stripslashes($userQuery);
-					if (!mysqli_query($conn, stripslashes($userQuery))) {
-						echo mysqli_error($conn);
+					//if (!mysqli_query($conn, stripslashes($userQuery))) {
+						//echo mysqli_error($conn);
+					//}
+					$userQuery = $_POST['query'];
+					$colNames = array();
+					if ($x = mysqli_query($conn, stripslashes($userQuery))) {
+						echo "<table>";
+						echo "<tr>";
+						$z = 0;
+						while ($z < mysqli_num_fields($x)) {
+							$q = mysqli_fetch_field($x);
+							echo '<th style="border: solid 2px darkgrey;">'.$q->name.'</th>';
+							$colNames[$z] = $q->name;
+							$z++;
+								
+						}
+						echo "</tr>";
+						
+						if (mysqli_num_rows($x) > 0) {
+							while ($r = mysqli_fetch_assoc($x)) {
+								echo "<tr>";
+								for ($v = 0; $v < sizeof($colNames); $v++) {
+									echo '<td style="border: solid 2px darkgrey;">'.$r[$colNames[$v]].'</td>';
+								}	
+								echo "</tr>";	
+							}
+						}
+						echo "</table>";
 					}
-                    else {
-                        $rowsAffected = mysqli_affected_rows($conn);
-                    }
+                    			else {
+                        			//$rowsAffected = mysqli_affected_rows($conn);
+					}
 					//mysqli_query($conn, $userQuery);
+					mysqli_free_result($x);
 					mysqli_close($conn);
-					echo "<meta http-equiv='refresh' content='0'>";
+					//echo "<meta http-equiv='refresh' content='0'>";
 				}
 			?>
 		</div>
         <div style="justify-context: center; text-align: center;">
             <br>
             <br>
-            echo "<p>".$rowsAffected."</p>";
-        </div>
+            <?php
+	//	echo "<p>".$rowsAffected."</p>";
+            ?>
+	</div>
 	</body>
 </html>
