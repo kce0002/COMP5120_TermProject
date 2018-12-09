@@ -117,8 +117,13 @@
 			</form>
 			<?php
 				if (isset($_POST['query'])) {
-					$userQuery = "".$_POST['query'];
-					mysqli_query($conn, $userQuery);
+					//$userQuery = "".$_POST['query'];
+					$userQuery = implode("", $_POST);
+					//stripslashes($userQuery);
+					if (!mysqli_query($conn, stripslashes($userQuery))) {
+						echo mysqli_error($conn);
+					}
+					//mysqli_query($conn, $userQuery);
 					mysqli_close($conn);
 					echo "<meta http-equiv='refresh' content='0'>";
 				}
