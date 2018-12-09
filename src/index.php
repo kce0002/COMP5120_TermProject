@@ -157,14 +157,18 @@
                         }
                         echo "</table>";
                     }
-                                else {
-                                    //$rowsAffected = mysqli_affected_rows($conn);
-                    }
                     //mysqli_query($conn, $userQuery);
                     mysqli_free_result($x);
                     mysqli_close($conn);
-					//echo "<meta http-equiv='refresh' content='0'>";
-				}
+		    $str = explode(' ', trim($userQuery));
+		    if (strtolower($str[0]) != "select") {
+		    	echo "<meta http-equiv='refresh' content='0'>";
+
+		    }
+		    else {
+
+		    }
+		}
             ?>
 	</div>
 	</body>
