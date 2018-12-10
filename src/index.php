@@ -1,19 +1,16 @@
 <?php
 	$userQuery = "";
-    $rowsAffected = "";
+    	$rowsAffected = "";
 	$DBHost = "mysql.auburn.edu";
 	$DBUser = "kce0002";
 	$DBPass = "Auburn123";
 	$DBName = "kce0002db";
-	$bookQuery = "SELECT * FROM Book;";
 	$tableNamesQuery = "SELECT table_name AS tables FROM information_schema.tables WHERE table_schema = DATABASE();";
 
 	$conn = mysqli_connect($DBHost, $DBUser, $DBPass, $DBName);
 	if (!$conn) {
 		die("Connection failed: ".mysqli_connect_error());
 	}
-
-	$result = mysqli_query($conn, $bookQuery);
 
 	$tables = mysqli_query($conn, $tableNamesQuery);
 
@@ -82,19 +79,6 @@
 					echo '</div>';
 				}
 			?>
-			<div id="Book" class="tabcontent">
-				<h3>BookID	Title</h3>
-				<?php
-					if (mysqli_num_rows($result) > 0) {
-						while ($row = mysqli_fetch_assoc($result)) {
-							echo "".$row["BookID"]."	".$row["Title"]."<br>";
-						}
-					}
-					else {
-						echo "0 results";
-					}
-				?>
-			</div>
 		</div>
 		<div style="justify-context: center; text-align: center;">
 			<br>
