@@ -1,6 +1,6 @@
 <?php
 	$userQuery = "";
-    	$rowsAffected = "";
+    $rowsAffected = "";
 	$DBHost = "mysql.auburn.edu";
 	$DBUser = "kce0002";
 	$DBPass = "Auburn123";
@@ -115,41 +115,48 @@
             <?php
                 if (isset($_POST['query'])) {
                     $userQuery = $_POST['query'];
-                    $colNames = array();
-                    if ($x = mysqli_query($conn, stripslashes($userQuery))) {
-                        echo "<table>";
-                        echo "<tr>";
-                        $z = 0;
-                        while ($z < mysqli_num_fields($x)) {
-                            $q = mysqli_fetch_field($x);
-                            echo '<th style="border: solid 2px darkgrey;">'.$q->name.'</th>';
-                            $colNames[$z] = $q->name;
-                            $z++;
-
-                        }
-                        echo "</tr>";
-
-                        if (mysqli_num_rows($x) > 0) {
-                            while ($r = mysqli_fetch_assoc($x)) {
-                                echo "<tr>";
-                                for ($v = 0; $v < sizeof($colNames); $v++) {
-                                    echo '<td style="border: solid 2px darkgrey;">'.$r[$colNames[$v]].'</td>';
-                                }	
-                                echo "</tr>";	
-                            }
-                        }
-                        echo "</table>";
-                    	mysqli_free_result($x);
-                    	mysqli_close($conn);
-		    	$str = explode(' ', trim($userQuery));
-		    	if (strtolower($str[0]) != "select") {
-		    		echo "<meta http-equiv='refresh' content='0'>";
-		    	}
-                    }
-		    else {
+		    if (strpos(strtolower($userQuery), 'drop') !== false) {
 			echo '<p style="color: red;">';
-			echo "Error: ".mysqli_error($conn);
+			echo "Drop operations are not permitted.";
 			echo "</p>";
+		    }
+		    else {
+                    	$colNames = array();
+                    	if ($x = mysqli_query($conn, stripslashes($userQuery))) {
+                        	echo "<table>";
+                        	echo "<tr>";
+                        	$z = 0;
+                        	while ($z < mysqli_num_fields($x)) {
+                            	$q = mysqli_fetch_field($x);
+                            	echo '<th style="border: solid 2px darkgrey;">'.$q->name.'</th>';
+                            	$colNames[$z] = $q->name;
+                            	$z++;
+		
+                	        }
+                        	echo "</tr>";
+
+                        	if (mysqli_num_rows($x) > 0) {
+                            		while ($r = mysqli_fetch_assoc($x)) {
+                                		echo "<tr>";
+                                		for ($v = 0; $v < sizeof($colNames); $v++) {
+                                    			echo '<td style="border: solid 2px darkgrey;">'.$r[$colNames[$v]].'</td>';
+                                		}	
+                                		echo "</tr>";	
+                            		}
+                        	}
+                        	echo "</table>";
+                    		mysqli_free_result($x);
+                    		mysqli_close($conn);
+		    		$str = explode(' ', trim($userQuery));
+		    		if (strtolower($str[0]) != "select") {
+		    			echo "<meta http-equiv='refresh' content='0'>";
+		    		}
+                    	}
+		    	else {
+				echo '<p style="color: red;">';
+				echo "Error: ".mysqli_error($conn);
+				echo "</p>";
+		    	}
 		    }
 		}
             ?>
