@@ -1,14 +1,4 @@
 <?php
-	/*function getQuery($userQuery) {
-		if (empty($_POST['query'])) {
-			
-		}
-		else {
-			$userQuery = $_POST['query'];
-			echo $userQuery;
-			print_r($_POST);
-		}
-	}*/
 	$userQuery = "";
     $rowsAffected = "";
 	$DBHost = "mysql.auburn.edu";
@@ -103,7 +93,6 @@
 					else {
 						echo "0 results";
 					}
-					//mysqli_close($conn);
 				?>
 			</div>
 		</div>
@@ -125,12 +114,6 @@
             <br>
             <?php
                 if (isset($_POST['query'])) {
-                    //$userQuery = "".$_POST['query'];
-                    //$userQuery = implode("", $_POST);
-                    //stripslashes($userQuery);
-                    //if (!mysqli_query($conn, stripslashes($userQuery))) {
-                        //echo mysqli_error($conn);
-                    //}
                     $userQuery = $_POST['query'];
                     $colNames = array();
                     if ($x = mysqli_query($conn, stripslashes($userQuery))) {
@@ -156,17 +139,17 @@
                             }
                         }
                         echo "</table>";
+                    	mysqli_free_result($x);
+                    	mysqli_close($conn);
+		    	$str = explode(' ', trim($userQuery));
+		    	if (strtolower($str[0]) != "select") {
+		    		echo "<meta http-equiv='refresh' content='0'>";
+		    	}
                     }
-                    //mysqli_query($conn, $userQuery);
-                    mysqli_free_result($x);
-                    mysqli_close($conn);
-		    $str = explode(' ', trim($userQuery));
-		    if (strtolower($str[0]) != "select") {
-		    	echo "<meta http-equiv='refresh' content='0'>";
-
-		    }
 		    else {
-
+			echo '<p style="color: red;">';
+			echo "Error: ".mysqli_error($conn);
+			echo "</p>";
 		    }
 		}
             ?>
