@@ -1,6 +1,6 @@
 <?php
 	$userQuery = "";
-    $rowsAffected = "";
+    	$rowsAffected = "";
 	$DBHost = "mysql.auburn.edu";
 	$DBUser = "kce0002";
 	$DBPass = "Auburn123";
