@@ -87,7 +87,7 @@
 				<textarea name="query" rows="5" cols="40"></textarea>
 				<br>
 				<br>
-				<input type="submit" class="button" style="float-left;" value="Submit">
+				<input type="submit" class="btn btn-primary" style="float-left;" value="Submit">
 			</form>
 			<?php
 				
